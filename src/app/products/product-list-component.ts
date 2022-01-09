@@ -32,7 +32,7 @@ export class ProductListComponent implements OnInit{
       "releaseDate": "March 18, 2021",
       "description": "Descripcion del cortador de cesped",
       "price": 32,
-      "starRating": 4.2,
+      "starRating": 2.5,
       "image": "assets/images/garden-cart.png",
     },{
       "productId":5,
@@ -56,5 +56,9 @@ export class ProductListComponent implements OnInit{
   performFilter(filterBy: string ): IProduct[]{
     filterBy = filterBy.toLocaleUpperCase();
     return this.products.filter((product : IProduct)=> product.productName.toLocaleUpperCase().includes(filterBy));
+  }
+
+  onRatingClicked(message: string): void{
+    this.pageTitle = 'Product List '+ message;
   }
 }

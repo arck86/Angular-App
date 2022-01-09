@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges } from "@angular/core";
+import { Component, EventEmitter, Input, OnChanges, Output } from "@angular/core";
+import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 
 @Component({
   selector: 'pm-star',
@@ -8,12 +9,14 @@ import { Component, Input, OnChanges } from "@angular/core";
 
 export class StarComponent implements OnChanges{
   @Input() rating: number = 0;
-  cropWidth: number = 0;
+  cropWidth: number = 75;
+  @Output() ratingClicked : EventEmitter<string> = new EventEmitter<string>();
 
   ngOnChanges(): void {
-    console.log(this.rating);
     this.cropWidth = this.rating * 75/5;
-    
-    console.log(this.cropWidth);
+  }
+
+  onClick(): void {
+    this.ratingClicked.emit(this.rating+' clicked');
   }
 }
