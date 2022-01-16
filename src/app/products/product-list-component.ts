@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { filter } from "rxjs";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { filter, Subscription } from "rxjs";
 import { IProduct } from "../product/product";
 import { ProductService } from "../product/product.service";
 import { StarComponent } from "../product/star/star.component";
@@ -11,12 +11,14 @@ import { StarComponent } from "../product/star/star.component";
   providers: [ProductService]
 })
 
-export class ProductListComponent implements OnInit{
+export class ProductListComponent implements OnInit, OnDestroy{
 
   pageTitle = 'Product List';
   imageWidth = 18;
   imageMargin: number  = 1;
   showImage : boolean = false;
+  errorMessage: string = '';
+  sub!: Subscription;
 
   private _listFilter: string = '';
   get listFilter(): string {
@@ -38,8 +40,17 @@ export class ProductListComponent implements OnInit{
   }
 
   ngOnInit(): void{
-    this.products = this.productService.getProducts();
-    this.listFilter = '';
+    this.sub = this.productService.getProducts().subscribe({
+      next: products => {
+        this.products = products;
+        this.filteredProducts = this.products;
+      },
+      error : err => this.errorMessage = err
+    });
+  }
+
+  ngOnDestroy(): void {
+      this.sub.unsubscribe();
   }
 
   performFilter(filterBy: string ): IProduct[]{
