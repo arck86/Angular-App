@@ -5,7 +5,6 @@ import { ProductService } from "../product/product.service";
 import { StarComponent } from "../product/star/star.component";
 
 @Component ({
-  selector: 'pm-products',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
   providers: [ProductService]
