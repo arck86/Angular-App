@@ -29,3 +29,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Para lanzar la aplicacion
 Run `npm start`
+
+## Docker (crear imagen)
+docker build -t angular-app:1 .
+
+## Docker (desplegar)
+ocker run --rm -ti -p4200:80 angular-app:1
