@@ -34,4 +34,4 @@ Run `npm start`
 docker build -t angular-app:1 .
 
 ## Docker (desplegar)
-ocker run --rm -ti -p4200:80 angular-app:1
+docker run --rm -ti -p4200:80 angular-app:1
